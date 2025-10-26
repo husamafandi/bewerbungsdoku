@@ -1,0 +1,194 @@
+
+/* ======================================================================
+   Bewerbungsdoku – Pro Kartenlayout + Filter + Auswahlmodus
+   Scope: #page-mod-bewerbungsdoku-view
+   ====================================================================== */
+#page-mod-bewerbungsdoku-view{
+  --bd-font: var(--bs-body-font-family, -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif);
+  --bd-text:#0f172a; 
+  --bd-muted:#64748b;
+  --bd-border:#e6e9ef; 
+  --bd-border-soft:#eef2f7;
+  --bd-chip-bg:#f8fafc; 
+  --bd-chip-bd:#e5e7eb;
+}
+#page-mod-bewerbungsdoku-view{ font-family:var(--bd-font); color:var(--bd-text); }
+
+/* ======================================================================
+   FILTERLEISTE – mobil 1-spaltig, Desktop kompakter
+   ====================================================================== */
+#page-mod-bewerbungsdoku-view .bdd-filter{
+  border:1px solid var(--bd-border);
+  border-radius:.6rem;
+  background:#fff;
+  box-shadow:0 1px 2px rgba(0,0,0,.03);
+  padding:.45rem .60rem;
+}
+#page-mod-bewerbungsdoku-view .bdd-filter .row{
+  display:grid;
+  grid-template-columns: 1fr;           /* Handy */
+  gap:.45rem;
+  align-items:end;
+}
+#page-mod-bewerbungsdoku-view .bdd-filter .form-label{
+  display:block; margin-bottom:.20rem; line-height:1.15;
+  font-weight:500; color:var(--bd-muted);
+}
+#page-mod-bewerbungsdoku-view .bdd-filter .custom-select,
+#page-mod-bewerbungsdoku-view .bdd-filter .form-control{
+  width:100%; height:calc(2.0rem + 2px); padding:.25rem .5rem;
+}
+#page-mod-bewerbungsdoku-view .bdd-filter .btn{
+  height:calc(2.0rem + 2px); padding:.35rem .70rem; white-space:nowrap;
+}
+/* Tablet: 2 Spalten */
+@media (min-width:576px){
+  #page-mod-bewerbungsdoku-view .bdd-filter .row{
+    grid-template-columns: repeat(2, minmax(220px,1fr));
+  }
+}
+/* Small desktop: 4 Spalten */
+@media (min-width:768px){
+  #page-mod-bewerbungsdoku-view .bdd-filter .row{
+    grid-template-columns: repeat(4, minmax(220px,1fr));
+    gap:.35rem .50rem;
+  }
+}
+/* Large desktop: alles in einer Zeile (Status|Gruppe|Teiln.*|Datum|Filter|Reset) */
+@media (min-width:1200px){
+  #page-mod-bewerbungsdoku-view .bdd-filter .row{
+    grid-template-columns: 1fr 1fr 1fr 1fr auto auto;
+    gap:.25rem .40rem;
+  }
+  #page-mod-bewerbungsdoku-view .bdd-filter .btn{ padding:.3rem .6rem; }
+}
+
+/* ======================================================================
+   KARTEN-GRID – mobil 1, Tablet 2, Desktop 3 Spalten
+   ====================================================================== */
+#page-mod-bewerbungsdoku-view .bdd-grid,
+#page-mod-bewerbungsdoku-view .bdd-cards{
+  display:grid; gap:.75rem; margin-top:.5rem; grid-template-columns:1fr;
+}
+@media (min-width:768px){
+  #page-mod-bewerbungsdoku-view .bdd-grid,
+  #page-mod-bewerbungsdoku-view .bdd-cards{ grid-template-columns: 1fr 1fr; }
+}
+@media (min-width:1200px){
+  #page-mod-bewerbungsdoku-view .bdd-grid,
+  #page-mod-bewerbungsdoku-view .bdd-cards{ grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* Karte */
+#page-mod-bewerbungsdoku-view .bdd-card{
+  position:relative;
+  background:#fff; border:1px solid var(--bd-border); border-radius:14px;
+  padding:.85rem .9rem; box-shadow:0 1px 2px rgba(0,0,0,.04);
+  transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+}
+#page-mod-bewerbungsdoku-view .bdd-card:hover{
+  border-color:#e8edf6; box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px);
+}
+/* Klick-Hinweis oben rechts */
+#page-mod-bewerbungsdoku-view .bdd-linkicon{
+  position:absolute; top:.55rem; right:.55rem; opacity:.0;
+  width:22px; height:22px; border-radius:50%; border:1px solid var(--bd-border);
+  display:flex; align-items:center; justify-content:center; background:#fff;
+  font-size:12px; color:#74809a; pointer-events:none; transition:opacity .15s ease;
+}
+#page-mod-bewerbungsdoku-view .bdd-card:hover .bdd-linkicon{ opacity:.9; }
+#page-mod-bewerbungsdoku-view .bdd-card--click{ cursor:pointer; }
+
+/* Kopf */
+#page-mod-bewerbungsdoku-view .bdd-card__head{
+  display:grid; grid-template-columns:1fr auto; gap:.6rem; align-items:start;
+  padding-bottom:.35rem; border-bottom:1px solid var(--bd-border-soft);
+}
+#page-mod-bewerbungsdoku-view .bdd-title{ margin:0; font-size:16px; font-weight:400; }
+#page-mod-bewerbungsdoku-view .bdd-mail{ color:#14458f; font-weight:400; }
+#page-mod-bewerbungsdoku-view .bdd-head__right{ display:flex; align-items:center; gap:.45rem; }
+
+/* Status-Pills */
+#page-mod-bewerbungsdoku-view .bd-status{
+  display:inline-flex; align-items:center; padding:.22rem .6rem; border-radius:999px;
+  border:1px solid #e5e7eb; background:#f8fafc; font-weight:500; font-size:.82rem; white-space:nowrap;
+}
+#page-mod-bewerbungsdoku-view .bd-status--open        {background:#eef6ff;border-color:#d6e8ff;color:#0b5ed7;}
+#page-mod-bewerbungsdoku-view .bd-status--inprogress  {background:#eef2ff;border-color:#dadcff;color:#4338ca;}
+#page-mod-bewerbungsdoku-view .bd-status--done        {background:#ecfdf5;border-color:#c7f0de;color:#047857;}
+#page-mod-bewerbungsdoku-view .bd-status--pendingreply{background:#fff7ed;border-color:#ffe6cc;color:#b45309;}
+#page-mod-bewerbungsdoku-view .bd-status--interview   {background:#f5f3ff;border-color:#e9e5ff;color:#6d28d9;}
+#page-mod-bewerbungsdoku-view .bd-status--shortlist   {background:#ecfeff;border-color:#caf0f6;color:#0e7490;}
+#page-mod-bewerbungsdoku-view .bd-status--rejected    {background:#fef2f2;border-color:#fde2e2;color:#b91c1c;}
+#page-mod-bewerbungsdoku-view .bd-status--other,
+#page-mod-bewerbungsdoku-view .bd-status--unspecified {background:#f7f7f7;border-color:#e7e7e7;color:#475569;}
+
+/* Meta */
+#page-mod-bewerbungsdoku-view .bdd-meta{ display:grid; grid-template-columns:1fr; gap:.25rem .8rem; margin:.55rem 0 .25rem; }
+@media (min-width:560px){ #page-mod-bewerbungsdoku-view .bdd-meta{ grid-template-columns:1fr 1fr; } }
+#page-mod-bewerbungsdoku-view .bdd-meta__item{ font-size:.95rem; color:#334155; }
+#page-mod-bewerbungsdoku-view .bdd-meta__label{ color:var(--bd-muted); }
+
+/* Auswahlmodus: Picker visible */
+#page-mod-bewerbungsdoku-view .bdd-pick{display:none;width:18px;height:18px;cursor:pointer;}
+#page-mod-bewerbungsdoku-view.bdd-picking .bdd-pick,
+body.bdd-picking #page-mod-bewerbungsdoku-view .bdd-pick{display:inline-block;}
+
+/* Bottom bar responsive */
+#page-mod-bewerbungsdoku-view .bdd-bottombar{ display:flex; flex-wrap:wrap; gap:.6rem; }
+#page-mod-bewerbungsdoku-view .bdd-bottombar .btn{ margin:0; }
+@media (max-width:640px){
+  #page-mod-bewerbungsdoku-view .bdd-bottombar .btn{ flex:1 1 100%; }
+}
+
+/* Initialbar ganz aus */
+#page-mod-bewerbungsdoku-view .initialbar{ display:none !important; }
+/* Abstand zwischen "Filter" und "Zurücksetzen" in der Filterleiste */
+#page-mod-bewerbungsdoku-view .bdd-filter__cell--buttons {
+  display: flex;              /* falls nicht schon gesetzt */
+  gap: .5rem;                 /* kleiner Abstand, nach Wunsch anpassen */
+}
+
+/* Fallback, falls die Buttons nicht im obigen Container liegen */
+#page-mod-bewerbungsdoku-view .bdd-filter .btn + .btn {
+  margin-left: .5rem;
+}
+/* Abstand zwischen Detailkarte und "Zurück"-Button */
+#page-mod-bewerbungsdoku-details .bdd-card + .singlebutton,
+#page-mod-bewerbungsdoku-details .bdd-detail-card + .singlebutton,
+#page-mod-bewerbungsdoku-details .card + .singlebutton {
+  margin-top: .75rem;        /* nach Wunsch anpassen (.5rem – 1rem) */
+}
+
+/* Falls der Button nicht in .singlebutton gerendert wird: Fallback */
+#page-mod-bewerbungsdoku-details .btn-back,
+#page-mod-bewerbungsdoku-details .btn-secondary.bdd-back {
+  margin-top: .75rem;
+}
+/* Details: kleinere Abschnittstitel (Notizen / Nächste Schritte / Anhänge) */
+#page-mod-bewerbungsdoku-details .bdd-section-title{
+  font-size: .95rem;        /* vorher ~1.125rem */
+  font-weight: 600;
+  color: #475569;           /* leicht abgetönt */
+  margin-bottom: .35rem;
+}
+
+/* Fallback, falls (sehr selten) kein .bdd-section-title gesetzt ist */
+#page-mod-bewerbungsdoku-details .bdd-card h4.bdd-section-title,
+#page-mod-bewerbungsdoku-details .bdd-card h4.section-title{
+  font-size: .95rem;
+  font-weight: 600;
+  color: #475569;
+}
+/* Details-Seite: Abschnittstitel kompakt (erzwingen) */
+#page-mod-bewerbungsdoku-details .bdd-card .bdd-section-title,
+#page-mod-bewerbungsdoku-details .bdd-card h3,
+#page-mod-bewerbungsdoku-details .bdd-card h4,
+#page-mod-bewerbungsdoku-details .bdd-card h5,
+#page-mod-bewerbungsdoku-details .bdd-card h6{
+  font-size: .9rem !important;      /* kleiner */
+  line-height: 1.25 !important;
+  margin: .35rem 0 .4rem !important;
+  font-weight: 600 !important;      /* dezent, nicht fett */
+  color: #475569 !important;        /* leicht abgetönt */
+}

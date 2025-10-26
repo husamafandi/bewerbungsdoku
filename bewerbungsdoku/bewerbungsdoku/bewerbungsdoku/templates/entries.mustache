@@ -1,0 +1,26 @@
+<table class="generaltable">
+  <thead>
+    <tr>
+      <th>{{#str}} eventtime, mod_bewerbungsdoku {{/str}}</th>
+      <th>{{#str}} entrytype, mod_bewerbungsdoku {{/str}}</th>
+      <th>{{#adminview}}{{#str}} participants_col, mod_bewerbungsdoku {{/str}}{{/adminview}}{{^adminview}}{{#str}} title, mod_bewerbungsdoku {{/str}}{{/adminview}}</th>
+      <th>{{#str}} organisation, mod_bewerbungsdoku {{/str}}</th>
+      <th>{{#str}} status, mod_bewerbungsdoku {{/str}}</th>
+      <th>{{#str}} attachments, mod_bewerbungsdoku {{/str}}</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#rows}}
+    <tr>
+      <td>{{date}}</td>
+      <td>{{type}}</td>
+      <td>{{{title}}}</td>
+      <td>{{organisation}}</td>
+      <td>{{status}}</td>
+      <td>{{{files}}}</td>
+      <td>{{{actions}}}</td>
+    </tr>
+  {{/rows}}
+  </tbody>
+</table>

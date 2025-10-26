@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLDB PATH="mod/bewerbungsdoku/db" VERSION="2025100800" COMMENT="Bewerbungsdoku tables" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TABLES>
+    <TABLE NAME="bewerbungsdoku" COMMENT="Instances of the activity">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <TABLE NAME="bewerbungsdoku_entries" COMMENT="User entries">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="bewerbungsdokuid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="entrytype" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="other"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+        <FIELD NAME="participantemail" TYPE="char" LENGTH="255" NOTNULL="false"/>
+        <FIELD NAME="organisation" TYPE="char" LENGTH="255" NOTNULL="false"/>
+        <FIELD NAME="contactname" TYPE="char" LENGTH="255" NOTNULL="false"/>
+        <FIELD NAME="contactemail" TYPE="char" LENGTH="255" NOTNULL="false"/>
+        <FIELD NAME="contactphone" TYPE="char" LENGTH="50" NOTNULL="false"/>
+        <FIELD NAME="commmethod" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="unspecified"/>
+        <FIELD NAME="eventtime" TYPE="int" LENGTH="10" NOTNULL="false"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="open"/>
+        <FIELD NAME="notes" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="nextsteps" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="bewerbungsdokuid_fk" TYPE="foreign" FIELDS="bewerbungsdokuid" REFTABLE="bewerbungsdoku" REFFIELDS="id"/>
+        <KEY NAME="userid_fk" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="ix_bdd_user" UNIQUE="false" FIELDS="bewerbungsdokuid, userid"/>
+        <INDEX NAME="ix_eventtime" UNIQUE="false" FIELDS="eventtime"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
